@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { Recording } from "./js/Recording.js";
   import Lights from "./Lights";
   import Thingy from "./Thingy";
   import Stage from "./Stage";
@@ -9,11 +10,20 @@
   let scene;
   let camera;
 
+  let recording;
+
   onMount(() => {
     // Assign camera to scene once the scene has been mounted
     // NOTE: This is necessary because camera="#camera" in <three-scene> doesn't work in this context
     scene.camera = camera.object;
+
+    recording = new Recording();
+    recording.load("data/mml_micro_1.1_1.log", recordingLoaded);
   });
+
+  function recordingLoaded(recording) {
+    console.log("Loaded: " + recording.filename);
+  }
 </script>
 
 <style>
