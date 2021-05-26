@@ -1,5 +1,4 @@
 import { Matrix4, Quaternion, Vector3 } from "three";
-export { Recording };
 
 class Recording {
   constructor() {
@@ -12,6 +11,10 @@ class Recording {
     this.durationMillis = 0;
     this.framesPerSecond = 0;
     this.looping = true;
+  }
+
+  available() {
+    return this.available;
   }
 
   getAt(timeMillis) {
@@ -105,10 +108,10 @@ class Recording {
             this.endMillis = timestampMillis;
             this.durationMillis = this.endMillis - this.startMillis;
           }
-          this.indexMillis = this.startMillis;
-          this.available = true;
-          callback(this);
         }
+        this.indexMillis = this.startMillis;
+        this.available = true;
+        callback(this);
       });
   }
 }
@@ -169,3 +172,5 @@ class TimeSeries extends Array {
     return midMatrix;
   }
 }
+
+export { Recording };

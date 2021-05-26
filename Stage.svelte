@@ -5,6 +5,13 @@
 	export let color = "#444";
 	export let selectedColor = "white";
 	export let position = [0, 0, 0];
+
+	export let recording = null;
+
+	const setRecording = _recording => {
+	  recording = _recording;
+	  game.requestFrame();
+	};
 </script>
 
 <three-group id="mml-stage" {position}>
