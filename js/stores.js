@@ -18,7 +18,7 @@ function createRecordingStore(_filename, cb) {
 
   const subscribe = (cb) => {
     subs.push(cb);
-    if (_recording.available()) cb(_recording.get());
+    if (available()) cb(_recording.get());
 
     return () => {
       const index = subs.findIndex((fn) => fn === cb);
@@ -27,6 +27,7 @@ function createRecordingStore(_filename, cb) {
   };
 
   const dispatch = () => {
+    console.log(_recording.get());
     subs.forEach((fn) => fn(_recording.get()));
   };
 

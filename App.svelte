@@ -22,6 +22,7 @@
   let stage3;
   let stage4;
   let recording1;
+  let recording1Loaded;
 
   let loaded;
   onMount(async () => {
@@ -92,9 +93,10 @@
     recording1 = recording(filename, recordingLoaded);
   }
 
-  const recordingLoaded = filename => {
+  function recordingLoaded(filename) {
+    recording1Loaded = true;
     console.log("Loaded: " + filename);
-  };
+  }
 </script>
 
 <style>
@@ -113,6 +115,13 @@
     position: fixed;
     right: 0;
     bottom: 0;
+  }
+  .info {
+    color: gray;
+    display: flex;
+    position: fixed;
+    left: 0;
+    top: 0;
   }
 </style>
 
@@ -142,6 +151,13 @@
         <Stage bind:this={stage4} position={[ 2.1, 0, -2.1]} color="#add" selectedColor="cyan"/>
       </three-scene>
     </three-game>
+</div>
+
+<div class="info">
+  {#if recording1Loaded}
+  <button on:click={recording1.step(0.1)}>Step</button>
+  <div>{$recording1.tracker_1.elements[0]}</div>
+  {/if}
 </div>
 
 <div class="menu">
